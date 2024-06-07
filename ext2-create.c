@@ -282,7 +282,7 @@ void write_block_bitmap(int fd)
 
 	// TODO It's all yours
 	u8 map_value[BLOCK_SIZE] ={0}; //set all default values to zero pls
-	for(u32 i=1; i<LAST_BLOCK;i++)
+	for(u32 i=1; i<LAST_BLOCK +1;i++)
 	{
 		 
 		u32 NumByte = (i-1)/8;
