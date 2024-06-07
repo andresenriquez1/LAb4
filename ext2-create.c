@@ -212,7 +212,7 @@ void write_superblock(int fd) {
 	superblock.s_mtime = 0;				/* Mount time */
 	superblock.s_wtime = current_time;	/* Write time */
 	superblock.s_mnt_count         = 0; /* Number of times mounted so far */
-	superblock.s_max_mnt_count     = 0; /* Make this unlimited */
+	superblock.s_max_mnt_count     = -1; /* Make this unlimited */
 	superblock.s_magic = 0XEF53; /* ext2 Signature */
 	superblock.s_state             = 1; /* File system is clean */
 	superblock.s_errors            = 1; /* Ignore the error (continue on) */
@@ -287,7 +287,7 @@ void write_block_bitmap(int fd)
 		 
 		u32 NumByte = (i-1)/8;
 		u32 NumBit = (i-1)/8;
-		map_value[NumByte] = (1 << NumBit);
+		map_value[NumByte] |= (1 << NumBit);
 	}
 
 
@@ -296,7 +296,7 @@ void write_block_bitmap(int fd)
 	{
 		u32 NumByte = (i-1)/8; //15
 		u32 NumBit = (i-1)/8; //7
-		map_value[NumByte] = (1 << NumBit);
+		map_value[NumByte] |= (1 << NumBit);
 
 	}
 
@@ -326,14 +326,14 @@ void write_inode_bitmap(int fd)
 	{
 		u32 NumByte = (i-1)/8; //15
 		u32 NumBit = (i-1)/8; //7
-		map_value[NumByte] = (1 << NumBit);
+		map_value[NumByte] |= (1 << NumBit);
 	}
 	//fix me can this be just 0-24???
 	for(u32 i=NUM_INODES+1 ;i<=NUM_BLOCKS*8;i++) //fill the first 24 with a val of 1, letting us know they are taken
 	{
 		u32 NumByte = (i-1)/8; //15
 		u32 NumBit = (i-1)/8; //7
-		map_value[NumByte] = (1 << NumBit);
+		map_value[NumByte] |= (1 << NumBit);
 
 	}
 
