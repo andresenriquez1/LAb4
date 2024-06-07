@@ -322,7 +322,7 @@ void write_inode_bitmap(int fd)
 	// TODO It's all yours
 	u8 map_value[BLOCK_SIZE] = {0};
 
-	for(u32 i=1 ; i<=LAST_INO+1 ;i++)
+	for(u32 i=1 ; i<LAST_INO+1 ;i++)
 	{
 		u32 NumByte = (i-1)/8; //15
 		u32 NumBit = (i-1)%8; //7
