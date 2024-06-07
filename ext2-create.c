@@ -286,7 +286,7 @@ void write_block_bitmap(int fd)
 	{
 		 
 		u32 NumByte = (i)/8;
-		u32 NumBit = (i)/8;
+		u32 NumBit = (i)%8;
 		map_value[NumByte] |= (1 << NumBit);
 	}
 
@@ -295,7 +295,7 @@ void write_block_bitmap(int fd)
 	for(u32 i=NUM_INODES*8;i<NUM_BLOCKS*8;i++) //fill the first 24 with a val of 1, letting us know they are taken
 	{
 		u32 NumByte = (i-1)/8; //15
-		u32 NumBit = (i-1)/8; //7
+		u32 NumBit = (i-1)%8; //7
 		map_value[NumByte] |= (1 << NumBit);
 
 	}
@@ -325,14 +325,14 @@ void write_inode_bitmap(int fd)
 	for(u32 i=1 ; i<=LAST_INO+1 ;i++)
 	{
 		u32 NumByte = (i-1)/8; //15
-		u32 NumBit = (i-1)/8; //7
+		u32 NumBit = (i-1)%8; //7
 		map_value[NumByte] |= (1 << NumBit);
 	}
 	//fix me can this be just 0-24???
 	for(u32 i=NUM_INODES+1 ;i<=NUM_BLOCKS*8;i++) //fill the first 24 with a val of 1, letting us know they are taken
 	{
 		u32 NumByte = (i-1)/8; //15
-		u32 NumBit = (i-1)/8; //7
+		u32 NumBit = (i-1)%8; //7
 		map_value[NumByte] |= (1 << NumBit);
 
 	}
@@ -343,7 +343,7 @@ void write_inode_bitmap(int fd)
 	// {
 	// 	errno_exit("write");
 	// }
-	if (write(fd, map_value, sizeof(map_value)) != BLOCK_SIZE)
+	if (write(fd, map_value, sizeof(map_value)) != sizeof(map_value))
 	{
 		errno_exit("write");
 	}
