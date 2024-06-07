@@ -285,8 +285,8 @@ void write_block_bitmap(int fd)
 	for(u32 i=0; i<LAST_BLOCK;i++)
 	{
 		 
-		u32 NumByte = (i-1)/8;
-		u32 NumBit = (i-1)/8;
+		u32 NumByte = (i)/8;
+		u32 NumBit = (i)/8;
 		map_value[NumByte] |= (1 << NumBit);
 	}
 
