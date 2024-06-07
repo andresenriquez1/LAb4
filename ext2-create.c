@@ -448,7 +448,8 @@ void write_inode_table(int fd) {
 void write_root_dir_block(int fd)
 {
 	// TODO It's all yours
-	off_t block_offset = BLOCK_OFFSET(ROOT_DIR_BLOCKNO);  // Calculate the offset for the root directory block
+off_t block_offset = BLOCK_OFFSET(ROOT_DIR_BLOCKNO);  // Calculate the offset for the root directory block
+
 block_offset = lseek(fd, block_offset, SEEK_SET);     // Seek to the root directory block offset
 if (block_offset == -1) {
     errno_exit("lseek");                              // Handle lseek error
@@ -531,8 +532,8 @@ void write_hello_world_file_block(int fd)
 
 	char const text[] = "Hello world\n";
 
-	ssize_t size = sizeof(text);
-	if (write(fd, text, size) != size) {
+
+	if (write(fd, text, sizeof(text)) != sizeof(text)) {
 		errno_exit("write");
 	}
 }
