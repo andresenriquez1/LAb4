@@ -301,10 +301,10 @@ void write_block_bitmap(int fd)
 	}
 
 
-	if (write(fd, map_value, BLOCK_SIZE) != BLOCK_SIZE)
-	{
-		errno_exit("write");
-	}
+	// if (write(fd, map_value, BLOCK_SIZE) != BLOCK_SIZE)
+	// {
+	// 	errno_exit("write");
+	// }
 	if (write(fd, map_value, sizeof(map_value)) != BLOCK_SIZE)
 	{
 		errno_exit("write");
@@ -339,10 +339,10 @@ void write_inode_bitmap(int fd)
 
 
 
-	if (write(fd, map_value, BLOCK_SIZE) != BLOCK_SIZE)
-	{
-		errno_exit("write");
-	}
+	// if (write(fd, map_value, BLOCK_SIZE) != BLOCK_SIZE)
+	// {
+	// 	errno_exit("write");
+	// }
 	if (write(fd, map_value, sizeof(map_value)) != BLOCK_SIZE)
 	{
 		errno_exit("write");
